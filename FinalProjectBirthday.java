@@ -110,10 +110,15 @@ public class FinalProjectBirthday extends Application {
     }
 
     private void addBirthday() {
-        String friendName = nameField.getText();
+        String friendName = nameField.getText().trim();
         String birthdayInput = birthdayField.getText();
         String friendLikes = likesField.getText();
         LocalDate birthday;
+
+        if(friendName.isEmpty()) {
+            showAlert("Error", "Friend's name is required. Please add a name!");
+            return;
+        }
 
         try {
             birthday = LocalDate.parse(birthdayInput, DateTimeFormatter.ISO_LOCAL_DATE);
@@ -124,7 +129,7 @@ public class FinalProjectBirthday extends Application {
             likesField.clear();
         } catch (DateTimeParseException e) {
             showAlert("Error", "Invalid date format. Use yyyy-mm-dd.");
-        }
+        } 
     }
 
     private void showBirthdays() {
@@ -151,7 +156,7 @@ public class FinalProjectBirthday extends Application {
                 imageContainer.getChildren().add(imageView); // Add image to the container
 
                 if (interests == null || interests.isEmpty()) {
-                    summary.append("No interests included!\n");
+                    summary.append("No interests included!\n").append("\n");
                 } else {
                     summary.append("Interests include: ").append(interests).append(".\n");
                     summary.append(getGiftRecommendation(interests)).append("\n");
@@ -167,7 +172,7 @@ public class FinalProjectBirthday extends Application {
                        .append(nextBirthday).append(".\n");
 
                 if (interests == null || interests.isEmpty()) {
-                        summary.append("No interests included!\n");
+                        summary.append("No interests included!\n").append("\n");
                 } else {
                         summary.append("Interests include: ").append(interests).append(".\n");
                         summary.append(getGiftRecommendation(interests)).append("\n");
